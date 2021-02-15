@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_monitor_queue/constants.dart';
+import 'package:flutter_monitor_queue/getx/setting_state.dart';
+import 'package:flutter_monitor_queue/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 class SettingScreen extends StatefulWidget {
+  bool first = false;
+
+  SettingScreen({bool first}) {
+    this.first = first;
+  }
+
   @override
   _SettingScreenState createState() => _SettingScreenState();
 }
@@ -11,15 +20,12 @@ class _SettingScreenState extends State<SettingScreen> {
   final _formKey = GlobalKey<FormState>();
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  final settingState = Get.put(SettingState());
+
   TextEditingController ctrlGroupCashier = TextEditingController();
   TextEditingController ctrlChannelCashier = TextEditingController();
   TextEditingController ctrlGroupOther = TextEditingController();
   TextEditingController ctrlChannelOther = TextEditingController();
-
-  bool isLockGroupCashier = false;
-  bool isLockChannelCashier = false;
-  bool isLockGroupOther = false;
-  bool isLockChannelOther = false;
 
   @override
   void initState() {
@@ -67,27 +73,27 @@ class _SettingScreenState extends State<SettingScreen> {
                       style: TextStyle(
                           fontFamily: Constants.SARABUN_REGULAR, fontSize: 16),
                     ),
-                    Switch(
-                        value: isLockGroupCashier,
-                        onChanged: (value) {
-                          setState(() {
-                            isLockGroupCashier = value;
-                          });
-                        }),
+                    GetBuilder<SettingState>(
+                        builder: (_) => Switch(
+                            value: settingState.isLockGroupCashier,
+                            onChanged: (value) {
+                              settingState.updateIsLockGroupCashier(value);
+                            })),
                     SizedBox(
                       width: 20,
                     ),
-                    Expanded(
-                        child: TextFormField(
-                      validator: _validateGroupCashier,
-                      enabled: isLockGroupCashier,
-                      controller: ctrlGroupCashier,
-                      decoration: InputDecoration(
-                          labelText: "กลุ่มบริการ",
-                          labelStyle: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Constants.SARABUN_REGULAR)),
-                    ))
+                    GetBuilder<SettingState>(
+                        builder: (_) => Expanded(
+                                child: TextFormField(
+                              validator: _validateGroupCashier,
+                              enabled: settingState.isLockGroupCashier,
+                              controller: ctrlGroupCashier,
+                              decoration: InputDecoration(
+                                  labelText: "กลุ่มบริการ",
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: Constants.SARABUN_REGULAR)),
+                            )))
                   ],
                 ),
                 Row(
@@ -97,27 +103,27 @@ class _SettingScreenState extends State<SettingScreen> {
                       style: TextStyle(
                           fontFamily: Constants.SARABUN_REGULAR, fontSize: 16),
                     ),
-                    Switch(
-                        value: isLockChannelCashier,
-                        onChanged: (value) {
-                          setState(() {
-                            isLockChannelCashier = value;
-                          });
-                        }),
+                    GetBuilder<SettingState>(
+                        builder: (_) => Switch(
+                            value: settingState.isLockChannelCashier,
+                            onChanged: (value) {
+                              settingState.updateIsLockChannelCashier(value);
+                            })),
                     SizedBox(
                       width: 20,
                     ),
-                    Expanded(
-                        child: TextFormField(
-                      validator: _validateChannelCashier,
-                      enabled: isLockChannelCashier,
-                      controller: ctrlChannelCashier,
-                      decoration: InputDecoration(
-                          labelText: "ช่องบริการ",
-                          labelStyle: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Constants.SARABUN_REGULAR)),
-                    ))
+                    GetBuilder<SettingState>(
+                        builder: (_) => Expanded(
+                                child: TextFormField(
+                              validator: _validateChannelCashier,
+                              enabled: settingState.isLockChannelCashier,
+                              controller: ctrlChannelCashier,
+                              decoration: InputDecoration(
+                                  labelText: "ช่องบริการ",
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: Constants.SARABUN_REGULAR)),
+                            )))
                   ],
                 ),
                 SizedBox(
@@ -143,27 +149,27 @@ class _SettingScreenState extends State<SettingScreen> {
                       style: TextStyle(
                           fontFamily: Constants.SARABUN_REGULAR, fontSize: 16),
                     ),
-                    Switch(
-                        value: isLockGroupOther,
-                        onChanged: (value) {
-                          setState(() {
-                            isLockGroupOther = value;
-                          });
-                        }),
+                    GetBuilder<SettingState>(
+                        builder: (_) => Switch(
+                            value: settingState.isLockGroupOther,
+                            onChanged: (value) {
+                              settingState.updateIsLockGroupOther(value);
+                            })),
                     SizedBox(
                       width: 20,
                     ),
-                    Expanded(
-                        child: TextFormField(
-                      validator: _validateGroupOther,
-                      enabled: isLockGroupOther,
-                      controller: ctrlGroupOther,
-                      decoration: InputDecoration(
-                          labelText: "กลุ่มบริการ",
-                          labelStyle: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Constants.SARABUN_REGULAR)),
-                    ))
+                    GetBuilder<SettingState>(
+                        builder: (_) => Expanded(
+                                child: TextFormField(
+                              validator: _validateGroupOther,
+                              enabled: settingState.isLockGroupOther,
+                              controller: ctrlGroupOther,
+                              decoration: InputDecoration(
+                                  labelText: "กลุ่มบริการ",
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: Constants.SARABUN_REGULAR)),
+                            )))
                   ],
                 ),
                 Row(
@@ -173,27 +179,27 @@ class _SettingScreenState extends State<SettingScreen> {
                       style: TextStyle(
                           fontFamily: Constants.SARABUN_REGULAR, fontSize: 16),
                     ),
-                    Switch(
-                        value: isLockChannelOther,
-                        onChanged: (value) {
-                          setState(() {
-                            isLockChannelOther = value;
-                          });
-                        }),
+                    GetBuilder<SettingState>(
+                        builder: (_) => Switch(
+                            value: settingState.isLockChannelOther,
+                            onChanged: (value) {
+                              settingState.updateIsLockChannelOther(value);
+                            })),
                     SizedBox(
                       width: 20,
                     ),
-                    Expanded(
-                        child: TextFormField(
-                      validator: _validateChannelOther,
-                      enabled: isLockChannelOther,
-                      controller: ctrlChannelOther,
-                      decoration: InputDecoration(
-                          labelText: "ช่องบริการ",
-                          labelStyle: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Constants.SARABUN_REGULAR)),
-                    ))
+                    GetBuilder<SettingState>(
+                        builder: (_) => Expanded(
+                                child: TextFormField(
+                              validator: _validateChannelOther,
+                              enabled: settingState.isLockChannelOther,
+                              controller: ctrlChannelOther,
+                              decoration: InputDecoration(
+                                  labelText: "ช่องบริการ",
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: Constants.SARABUN_REGULAR)),
+                            )))
                   ],
                 ),
                 SizedBox(
@@ -209,7 +215,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   String _validateGroupCashier(String value) {
-    if (isLockGroupCashier) {
+    if (settingState.isLockGroupCashier) {
       if (value == "") {
         return "กรุณาระบุกลุ่มบริการ";
       }
@@ -219,7 +225,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   String _validateGroupOther(String value) {
-    if (isLockGroupOther) {
+    if (settingState.isLockGroupOther) {
       if (value == "") {
         return "กรุณาระบุกลุ่มบริการ";
       }
@@ -229,7 +235,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   String _validateChannelCashier(String value) {
-    if (isLockChannelCashier) {
+    if (settingState.isLockChannelCashier) {
       if (value == "") {
         return "กรุณาระบุช่องบริการ";
       }
@@ -239,7 +245,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   String _validateChannelOther(String value) {
-    if (isLockChannelOther) {
+    if (settingState.isLockChannelOther) {
       if (value == "") {
         return "กรุณาระบุช่องบริการ";
       }
@@ -253,11 +259,15 @@ class _SettingScreenState extends State<SettingScreen> {
       try {
         final SharedPreferences prefs = await _prefs;
         // set status locked
-        prefs.setBool(Constants.KEY_IS_LOCK_GROUP_CASHIER, isLockGroupCashier);
+        prefs.setBool(Constants.KEY_IS_LOCK_GROUP_CASHIER,
+            settingState.isLockGroupCashier);
+        prefs.setBool(Constants.KEY_IS_LOCK_CHANNEL_CASHIER,
+            settingState.isLockChannelCashier);
         prefs.setBool(
-            Constants.KEY_IS_LOCK_CHANNEL_CASHIER, isLockChannelCashier);
-        prefs.setBool(Constants.KEY_IS_LOCK_GROUP_OTHER, isLockGroupOther);
-        prefs.setBool(Constants.KEY_IS_LOCK_CHANNEL_OTHER, isLockChannelOther);
+            Constants.KEY_IS_LOCK_GROUP_OTHER, settingState.isLockGroupOther);
+        prefs.setBool(Constants.KEY_IS_LOCK_CHANNEL_OTHER,
+            settingState.isLockChannelOther);
+
         // set value locked
         prefs.setString(
             Constants.KEY_GROUP_LOCK_CASHIER, ctrlGroupCashier.text);
@@ -267,7 +277,14 @@ class _SettingScreenState extends State<SettingScreen> {
         prefs.setString(
             Constants.KEY_CHANNEL_LOCK_OTHER, ctrlChannelOther.text);
 
+        settingState.updateGroupCashier(ctrlGroupCashier.text);
+        settingState.updateChannelCashier(ctrlChannelCashier.text);
+        settingState.updateGroupOther(ctrlGroupOther.text);
+        settingState.updateChannelOther(ctrlChannelOther.text);
+
         print("บันทึกข้อมูลสำเร็จ");
+
+        Get.to(() => HomeScreen());
       } catch (err) {
         print(err.toString());
       }
@@ -289,8 +306,7 @@ class _SettingScreenState extends State<SettingScreen> {
     var _lockChannelCashier =
         prefs.getString(Constants.KEY_CHANNEL_LOCK_CASHIER);
     var _lockGroupOther = prefs.getString(Constants.KEY_GROUP_LOCK_OTHER);
-    var _lockChannelOther =
-        prefs.getString(Constants.KEY_CHANNEL_LOCK_OTHER);
+    var _lockChannelOther = prefs.getString(Constants.KEY_CHANNEL_LOCK_OTHER);
 
     if (_isLockGroupCashier == null ||
         _isLockChannelCashier == null ||
@@ -304,16 +320,23 @@ class _SettingScreenState extends State<SettingScreen> {
       return;
     }
 
-    setState(() {
-      isLockGroupCashier = _isLockGroupCashier;
-      isLockChannelCashier = _isLockChannelCashier;
-      isLockGroupOther = _isLockGroupOther;
-      isLockChannelOther = _isLockChannelOther;
-    });
-
     ctrlGroupCashier.text = _lockGroupCashier;
     ctrlChannelCashier.text = _lockChannelCashier;
     ctrlGroupOther.text = _lockGroupOther;
     ctrlChannelOther.text = _lockChannelOther;
+
+    settingState.updateIsLockGroupCashier(_isLockGroupCashier);
+    settingState.updateIsLockChannelCashier(_isLockChannelCashier);
+    settingState.updateIsLockGroupOther(_isLockGroupOther);
+    settingState.updateIsLockChannelOther(_isLockChannelOther);
+
+    if (widget.first) {
+      settingState.updateGroupCashier(_lockGroupCashier);
+      settingState.updateChannelCashier(_lockChannelCashier);
+      settingState.updateGroupOther(_lockGroupOther);
+      settingState.updateChannelOther(_lockChannelOther);
+
+      Get.to(() => HomeScreen());
+    }
   }
 }
