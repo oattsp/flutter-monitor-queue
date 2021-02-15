@@ -4,7 +4,6 @@ import 'package:flutter_monitor_queue/constants.dart';
 import 'package:flutter_monitor_queue/getx/cashier_state.dart';
 import 'package:flutter_monitor_queue/getx/other_state.dart';
 import 'package:flutter_monitor_queue/socket/server_socket.dart';
-import 'package:flutter_monitor_queue/widget/close_button.dart';
 import 'package:flutter_monitor_queue/widget/normal_number.dart';
 import 'package:get/get.dart';
 
@@ -54,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
           body: Stack(
         children: [
-          closeButton(),
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(

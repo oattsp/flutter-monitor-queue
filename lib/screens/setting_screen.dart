@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_monitor_queue/constants.dart';
 import 'package:flutter_monitor_queue/getx/setting_state.dart';
@@ -44,7 +46,7 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
         actions: [
           IconButton(icon: Icon(Icons.save), onPressed: () => setPrefs()),
-          IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {})
+          IconButton(icon: Icon(Icons.exit_to_app), onPressed: () => exit(0))
         ],
       ),
       body: SingleChildScrollView(

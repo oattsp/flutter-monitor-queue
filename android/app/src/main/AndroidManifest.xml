@@ -1,8 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pole.flutter_monitor_queue">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
    <application
-        android:label="flutter_monitor_queue"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Queue TV"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -32,6 +39,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+       <receiver android:name=".BootReceiver" android:permission="android.permission.RECEIVE_BOOT_COMPLETED" android:exported="true" android:enabled="true">
+           <intent-filter android:priority="999">
+               <action android:name="android.intent.action.BOOT_COMPLETED"/>
+               <category android:name="android.intent.category.DEFAULT"/>
+           </intent-filter>
+       </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
