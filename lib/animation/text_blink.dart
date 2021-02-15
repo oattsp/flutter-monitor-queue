@@ -47,12 +47,6 @@ class _TextBlinkState extends State<TextBlink>
         controller.forward();
       }
     });
-
-    if (widget.isBlink) {
-        controller.forward();
-    } else {
-        controller.stop();
-    }
   }
 
   @override
@@ -63,29 +57,37 @@ class _TextBlinkState extends State<TextBlink>
   }
 
   @override
-  Widget build(BuildContext context) => Positioned(
-        child: Container(
-          width: widget.width,
-          height: widget.height,
-          child: AnimatedBuilder(
-              animation: animation,
-              builder: (BuildContext context, Widget child) {
-                return new Container(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      widget.text,
-                      style: TextStyle(
-                          color:
-                              widget.isBlink ? animation.value : Colors.black,
-                          fontFamily: Constants.ROBOTO_REGULAR),
-                    ),
+  Widget build(BuildContext context) {
+
+    if (widget.isBlink) {
+      controller.forward();
+    } else {
+      controller.stop();
+    }
+
+    return Positioned(
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        child: AnimatedBuilder(
+            animation: animation,
+            builder: (BuildContext context, Widget child) {
+              return new Container(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    widget.text,
+                    style: TextStyle(
+                        color: widget.isBlink ? animation.value : Colors.black,
+                        fontFamily: Constants.ROBOTO_REGULAR),
                   ),
-                );
-              }),
-          color: Colors.transparent,
-        ),
-        top: widget.top,
-        left: widget.left,
-      );
+                ),
+              );
+            }),
+        color: Colors.transparent,
+      ),
+      top: widget.top,
+      left: widget.left,
+    );
+  }
 }

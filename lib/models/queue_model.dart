@@ -1,9 +1,11 @@
-class QueueModel {
-    String queue;
-    String channel;
+import 'package:dataclass/dataclass.dart';
 
-    QueueModel({String queue, String channel}) {
-      this.queue = queue;
-      this.channel = channel;
-    }
+part 'queue_model.g.dart';
+
+@dataClass
+class QueueModel extends _$QueueModel {
+    final String queue;
+    final String channel;
+
+    QueueModel({this.queue, this.channel});
 }

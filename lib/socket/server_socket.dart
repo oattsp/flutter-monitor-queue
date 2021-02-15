@@ -44,7 +44,7 @@ class ServerSocketTcp {
       for (var i = 0; i < row.length; i++) {
         var tempCommand = row[i].split(new RegExp('\\s+'));
         if (tempCommand != null && tempCommand.length > 0) {
-          // print(tempCommand);
+          print(tempCommand);
           if (tempCommand[0] == 'CHH') {
             cashierServices.onCallQueue(tempCommand);
           }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_monitor_queue/animation/text_blink.dart';
 import 'package:flutter_monitor_queue/constants.dart';
+import 'package:flutter_monitor_queue/getx/cashier_state.dart';
 import 'package:flutter_monitor_queue/socket/server_socket.dart';
 import 'package:flutter_monitor_queue/widget/close_button.dart';
 import 'package:flutter_monitor_queue/widget/normal_number.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  final cashierState = Get.put(CashierState());
   ServerSocketTcp server = ServerSocketTcp(1024);
 
   @override
@@ -58,72 +60,102 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.fill)),
           ),
           // รับชำระเงิน หมายเลขคิว
-          TextBlink(
-            text: "0000",
-            width: 275 * ratioX,
-            height: 150 * ratioY,
-            top: 324 * ratioY,
-            left: 180 * ratioX,
-            isBlink: false,
-          ),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 150 * ratioY,
-              top: 460 * ratioY,
-              left: 180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 150 * ratioY,
-              top: 596 * ratioY,
-              left: 180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 150 * ratioY,
-              top: 733 * ratioY,
-              left: 180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 150 * ratioY,
-              top: 870 * ratioY,
-              left: 180 * ratioX),
+          GetBuilder<CashierState>(
+              builder: (_) => TextBlink(
+                    text: cashierState.queue.length >= 1
+                        ? cashierState.queue[0].queue
+                        : "0000",
+                    width: 275 * ratioX,
+                    height: 150 * ratioY,
+                    top: 324 * ratioY,
+                    left: 180 * ratioX,
+                    isBlink: cashierState.isBlink,
+                  )),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 2
+                      ? cashierState.queue[1].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 150 * ratioY,
+                  top: 460 * ratioY,
+                  left: 180 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 3
+                      ? cashierState.queue[2].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 150 * ratioY,
+                  top: 596 * ratioY,
+                  left: 180 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 4
+                      ? cashierState.queue[3].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 150 * ratioY,
+                  top: 733 * ratioY,
+                  left: 180 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 5
+                      ? cashierState.queue[4].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 150 * ratioY,
+                  top: 870 * ratioY,
+                  left: 180 * ratioX)),
 
           // รับชำระเงิน ช่องบริการ
-          TextBlink(
-            text: "00",
-            width: 138 * ratioX,
-            height: 150 * ratioY,
-            top: 324 * ratioY,
-            left: 650 * ratioX,
-            isBlink: false,
-          ),
-          NormalNumber(
-              text: "00",
-              width: 138 * ratioX,
-              height: 150 * ratioY,
-              top: 460 * ratioY,
-              left: 650 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 138 * ratioX,
-              height: 150 * ratioY,
-              top: 596 * ratioY,
-              left: 650 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 138 * ratioX,
-              height: 150 * ratioY,
-              top: 733 * ratioY,
-              left: 650 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 138 * ratioX,
-              height: 150 * ratioY,
-              top: 870 * ratioY,
-              left: 650 * ratioX),
+          GetBuilder<CashierState>(
+              builder: (_) => TextBlink(
+                    text: cashierState.queue.length >= 1
+                        ? cashierState.queue[0].channel
+                        : "0",
+                    width: 138 * ratioX,
+                    height: 135 * ratioY,
+                    top: 330 * ratioY,
+                    left: 650 * ratioX,
+                    isBlink: cashierState.isBlink,
+                  )),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 2
+                      ? cashierState.queue[1].channel
+                      : "0",
+                  width: 138 * ratioX,
+                  height: 135 * ratioY,
+                  top: 467 * ratioY,
+                  left: 650 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 3
+                      ? cashierState.queue[2].channel
+                      : "0",
+                  width: 138 * ratioX,
+                  height: 135 * ratioY,
+                  top: 605 * ratioY,
+                  left: 650 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 4
+                      ? cashierState.queue[3].channel
+                      : "0",
+                  width: 138 * ratioX,
+                  height: 135 * ratioY,
+                  top: 743 * ratioY,
+                  left: 650 * ratioX)),
+          GetBuilder<CashierState>(
+              builder: (_) => NormalNumber(
+                  text: cashierState.queue.length >= 5
+                      ? cashierState.queue[4].channel
+                      : "0",
+                  width: 138 * ratioX,
+                  height: 135 * ratioY,
+                  top: 878 * ratioY,
+                  left: 650 * ratioX)),
 
           // สาขา พระโขนง - สาขา สุขุมวิท หมายเลขคิว
           TextBlink(
