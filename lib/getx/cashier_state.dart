@@ -19,6 +19,11 @@ class CashierState extends GetxController {
         update();
     }
 
+    void resetQueue() {
+        queue = [];
+        update();
+    }
+
     void updateBlink(bool value) {
         isBlink = value;
         update();

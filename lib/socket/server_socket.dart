@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_monitor_queue/services/cashier_service.dart';
+import 'package:flutter_monitor_queue/services/other_service.dart';
 
 class ServerSocketTcp {
   // properties
@@ -8,6 +9,7 @@ class ServerSocketTcp {
   ServerSocket serverSocket;
   Socket _socket;
   CashierServices cashierServices = CashierServices();
+  OtherService otherService = OtherService();
 
   ServerSocketTcp(this.port);
 
@@ -47,6 +49,12 @@ class ServerSocketTcp {
           print(tempCommand);
           if (tempCommand[0] == 'CHH') {
             cashierServices.onCallQueue(tempCommand);
+            otherService.onCallQueue(tempCommand);
+          }
+          if (tempCommand[0] == 'RST' && tempCommand[1] == '1') {
+            cashierServices.onResetQueue();
+            otherService.onResetQueue();
+            _socket.write('RST 100\r\n');
           }
         }
       }

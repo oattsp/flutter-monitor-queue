@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_monitor_queue/animation/text_blink.dart';
 import 'package:flutter_monitor_queue/constants.dart';
 import 'package:flutter_monitor_queue/getx/cashier_state.dart';
+import 'package:flutter_monitor_queue/getx/other_state.dart';
 import 'package:flutter_monitor_queue/socket/server_socket.dart';
 import 'package:flutter_monitor_queue/widget/close_button.dart';
 import 'package:flutter_monitor_queue/widget/normal_number.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final cashierState = Get.put(CashierState());
+  final otherState = Get.put(OtherState());
   ServerSocketTcp server = ServerSocketTcp(1024);
 
   @override
@@ -158,96 +160,138 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: 650 * ratioX)),
 
           // สาขา พระโขนง - สาขา สุขุมวิท หมายเลขคิว
-          TextBlink(
-            text: "0000",
-            width: 275 * ratioX,
-            height: 120 * ratioY,
-            top: 240 * ratioY,
-            left: 1180 * ratioX,
-            isBlink: false,
-          ),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 350 * ratioY,
-              left: 1180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 461 * ratioY,
-              left: 1180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 573 * ratioY,
-              left: 1180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 685 * ratioY,
-              left: 1180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 798 * ratioY,
-              left: 1180 * ratioX),
-          NormalNumber(
-              text: "0000",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 910 * ratioY,
-              left: 1180 * ratioX),
+          GetBuilder<OtherState>(
+              builder: (_) => TextBlink(
+                    text: otherState.queue.length >= 1
+                        ? otherState.queue[0].queue
+                        : "0000",
+                    width: 275 * ratioX,
+                    height: 120 * ratioY,
+                    top: 240 * ratioY,
+                    left: 1180 * ratioX,
+                    isBlink: otherState.isBlink,
+                  )),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 2
+                      ? otherState.queue[1].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 350 * ratioY,
+                  left: 1180 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 3
+                      ? otherState.queue[2].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 461 * ratioY,
+                  left: 1180 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 4
+                      ? otherState.queue[3].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 573 * ratioY,
+                  left: 1180 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 5
+                      ? otherState.queue[4].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 685 * ratioY,
+                  left: 1180 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 6
+                      ? otherState.queue[5].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 798 * ratioY,
+                  left: 1180 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 7
+                      ? otherState.queue[6].queue
+                      : "0000",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 910 * ratioY,
+                  left: 1180 * ratioX)),
 
           // สาขา พระโขนง - สาขา สุขุมวิท ช่องบริการ
-          TextBlink(
-            text: "00",
-            width: 275 * ratioX,
-            height: 120 * ratioY,
-            top: 240 * ratioY,
-            left: 1505 * ratioX,
-            isBlink: false,
-          ),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 350 * ratioY,
-              left: 1505 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 461 * ratioY,
-              left: 1505 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 573 * ratioY,
-              left: 1505 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 685 * ratioY,
-              left: 1505 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 798 * ratioY,
-              left: 1505 * ratioX),
-          NormalNumber(
-              text: "00",
-              width: 275 * ratioX,
-              height: 120 * ratioY,
-              top: 910 * ratioY,
-              left: 1505 * ratioX),
+          GetBuilder<OtherState>(
+              builder: (_) => TextBlink(
+                    text: otherState.queue.length >= 1
+                        ? otherState.queue[0].channel
+                        : "0",
+                    width: 275 * ratioX,
+                    height: 120 * ratioY,
+                    top: 240 * ratioY,
+                    left: 1510 * ratioX,
+                    isBlink: otherState.isBlink,
+                  )),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 2
+                      ? otherState.queue[1].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 350 * ratioY,
+                  left: 1510 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 3
+                      ? otherState.queue[2].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 461 * ratioY,
+                  left: 1510 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 4
+                      ? otherState.queue[3].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 573 * ratioY,
+                  left: 1510 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 5
+                      ? otherState.queue[4].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 685 * ratioY,
+                  left: 1510 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 6
+                      ? otherState.queue[5].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 798 * ratioY,
+                  left: 1510 * ratioX)),
+          GetBuilder<OtherState>(
+              builder: (_) => NormalNumber(
+                  text: otherState.queue.length >= 7
+                      ? otherState.queue[6].channel
+                      : "0",
+                  width: 275 * ratioX,
+                  height: 120 * ratioY,
+                  top: 910 * ratioY,
+                  left: 1510 * ratioX)),
         ],
       )),
     );
